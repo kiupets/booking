@@ -45,4 +45,4 @@ const CalendarContainerIndividual = ({ month }) => {
   )
 }
 
-export default CalendarContainerIndividual
+export const CalendarContainerInd = React.memo(CalendarContainerIndividual)

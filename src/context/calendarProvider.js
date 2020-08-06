@@ -41,13 +41,20 @@ const roomsProvider = (state, action) => {
       return { ...state, next: next + n }
     }
     case MSGS.NEXT: {
-      const { calendarArray, current } = state
+      const { calendarArray } = state
       const { n } = action
       const updatedCalendarArray = R.append(n, calendarArray)
-      return {
-        ...state,
-        calendarArray: updatedCalendarArray,
-        current: current + 1,
+      if (updatedCalendarArray.length > 2) {
+        const takeArray = R.takeLast(2, updatedCalendarArray)
+        return {
+          ...state,
+          calendarArray: takeArray,
+        }
+      } else {
+        return {
+          ...state,
+          calendarArray: updatedCalendarArray,
+        }
       }
     }
 
