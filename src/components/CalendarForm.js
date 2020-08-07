@@ -2,16 +2,16 @@ import React, { useEffect, useContext, useState, useCallback } from 'react'
 import * as R from 'ramda'
 import { calendarArrayy, roomsData } from '../utils'
 import { Context } from '../context/calendarProvider'
-import { CalendarContainerInd } from './calendarContainerIndividual'
-import CalendarForm from './CalendarForm'
+import { LittleCal } from './LittleCalendar'
+import LittleCalendar from './LittleCalendar'
 
-const CalendarContainer = () => {
+const CalendarForm = () => {
   const { state, nextMsg, prevMsg } = useContext(Context)
   const { calendarArray, current } = state
   console.log(calendarArray)
 
   const calendar = calendarArray.map((n) => {
-    return <CalendarContainerInd month={calendarArrayy[n]} />
+    return <LittleCal month={calendarArrayy[n]} />
   })
 
   const scrolling = (e) => {
@@ -35,10 +35,9 @@ const CalendarContainer = () => {
         gridAutoFlow: 'column',
       }}
     >
-      {/* {calendar} */}
-      <CalendarForm />
+      {calendar}
     </div>
   )
 }
 
-export default CalendarContainer
+export default CalendarForm

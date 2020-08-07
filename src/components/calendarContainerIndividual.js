@@ -1,5 +1,5 @@
 import React from 'react'
-import { calendarArrayy, roomsData } from '../utils'
+import { roomsData } from '../utils'
 const styleMonth = {
   display: 'flex',
   justifyContent: 'space-between',
@@ -31,7 +31,7 @@ const CalendarContainerIndividual = ({ month }) => {
 
       <div style={styleDaysContainer}>
         {month.days.map((day) => (
-          <div style={styleDays}>
+          <div onClick={(e) => console.log(e.target)} style={styleDays}>
             {day}
             <div>
               {roomsData.map((ro) => (

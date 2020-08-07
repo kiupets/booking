@@ -95,9 +95,6 @@ export const { Context, Provider } = createDataContext(
   { prevMsg, nextMsg, setCalendarMsg, counterNextMsg },
   {
     calendarArray: [month - 1],
-    next: 0,
-    prev: 0,
     current: month - 1,
-    isVisible: false,
   },
 )

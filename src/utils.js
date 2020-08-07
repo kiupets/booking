@@ -61,6 +61,22 @@ export const days = [...Array(daysOfMonth(year, month))].map((_, y) => y + 1)
 // [ DATA ]: RESERVATION TWO DIMENSIONAL ARRAY DATA
 
 const monthReducerArray = (acc, month, i) => {
-  return [...acc, { name: month, days: allMonthArray[i] }]
+  return [
+    ...acc,
+    {
+      name: month,
+      days: allMonthArray[i],
+    },
+  ]
 }
 export const calendarArrayy = monthNames.reduce(monthReducerArray, [])
+
+const dayColumn = allMonthArray.map((m, mm) => {
+  return m.map((d) => {
+    return { day: new Date(2020, mm, d).getDay() }
+  })
+})
+export const initDays = dayColumn.map((x, i) => {
+  return { month: monthNames[i], column: x[0].day + 1 }
+})
+console.log(initDays)
