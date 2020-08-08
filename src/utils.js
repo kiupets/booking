@@ -79,4 +79,3 @@ const dayColumn = allMonthArray.map((m, mm) => {
 export const initDays = dayColumn.map((x, i) => {
   return { month: monthNames[i], column: x[0].day + 1 }
 })
-console.log(initDays)

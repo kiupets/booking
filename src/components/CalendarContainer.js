@@ -8,7 +8,6 @@ import CalendarForm from './CalendarForm'
 const CalendarContainer = () => {
   const { state, nextMsg, prevMsg } = useContext(Context)
   const { calendarArray, current } = state
-  console.log(calendarArray)
 
   const calendar = calendarArray.map((n) => {
     return <CalendarContainerInd month={calendarArrayy[n]} />
@@ -29,8 +28,8 @@ const CalendarContainer = () => {
     <div
       onScroll={scrolling}
       style={{
-        overflowX: 'scroll',
-        overflowY: 'hidden',
+        // overflowX: 'scroll',
+        // overflowY: 'hidden',
         display: 'grid',
         gridAutoFlow: 'column',
       }}

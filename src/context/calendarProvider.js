@@ -1,7 +1,6 @@
 import * as R from 'ramda'
 import createDataContext from './createDataContext'
 import { month } from '../utils'
-console.log(month)
 
 const MSGS = {
   PREV: 'PREV',
@@ -34,12 +33,6 @@ const nextMsg = (dispatch) => (n) =>
 
 const roomsProvider = (state, action) => {
   switch (action.type) {
-    case MSGS.COUTERNEXT: {
-      const { next } = state
-      const { n } = action
-
-      return { ...state, next: next + n }
-    }
     case MSGS.NEXT: {
       const { calendarArray } = state
       const { n } = action
@@ -60,7 +53,7 @@ const roomsProvider = (state, action) => {
 
     case MSGS.PREV: {
       const { calendarArray, current } = state
-      console.log(current)
+
       const { n } = action
 
       const updatedCalendarArray = R.prepend(n, calendarArray)
