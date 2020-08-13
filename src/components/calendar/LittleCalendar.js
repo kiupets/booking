@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import FastForwardIcon from '@material-ui/icons/FastForward'
 import FastRewindIcon from '@material-ui/icons/FastRewind'
-import { Context } from '../context/littleCalendarProvider'
-import { daysOfTheWeek, initDays } from '../utils'
+import { Context } from '../../context/littleCalendarProvider'
+import { Context as Context2 } from '../../context/littleCalendarProvider2'
+import { Context as BookingContext } from '../../context/bookingProvider'
+
+import { daysOfTheWeek, initDays } from '../../utils'
 
 const shorDay = daysOfTheWeek.map((d) => d.slice(0, 2))
 const styleMonth = {
@@ -21,9 +24,14 @@ const styleDaysContainer = {
   gridTemplateColumns: 'repeat(7,1fr)',
 }
 
-const LittleCalendar = ({ month }) => {
+const LittleCalendar = ({ month, idd }) => {
   const { state, nextMsg, prevMsg } = useContext(Context)
   const { current } = state
+  const { nextMsg2, prevMsg2 } = useContext(Context2)
+  const { current2, calendarArray2 } = useContext(Context2).state
+  const bookingState = useContext(BookingContext).state
+  const { desdeMsg, hastaMsg } = useContext(BookingContext)
+  console.log(bookingState)
 
   const filterMonth = initDays.filter((m) => m.month == month.name)
   const column = (i) => {
@@ -35,12 +43,24 @@ const LittleCalendar = ({ month }) => {
         <div style={styleMonth}>
           <FastRewindIcon
             style={{ fontSize: 20, opacity: 0.4 }}
-            onClick={() => prevMsg(current - 1)}
+            onClick={() => {
+              if (idd === '1') {
+                prevMsg(current - 1)
+              } else if (idd === '2') {
+                prevMsg2(current2 - 1)
+              }
+            }}
           />
           <div style={{ fontSize: 9 }}>{month.name}</div>
           <FastForwardIcon
             style={{ fontSize: 20, opacity: 0.4 }}
-            onClick={() => nextMsg(current + 1)}
+            onClick={() => {
+              if (idd === '1') {
+                nextMsg(current + 1)
+              } else if (idd === '2') {
+                nextMsg2(current2 + 1)
+              }
+            }}
           />
         </div>
 
@@ -63,8 +83,18 @@ const LittleCalendar = ({ month }) => {
           {month.days.map((day, i) => {
             return (
               <div
-                onClick={(e) => console.log(e.target)}
+                // DESDE >>>>>> HASTA
+                onClick={(e) => {
+                  if (idd === '1') {
+                    // console.log(e.target.innerHTML, month.name)
+                    desdeMsg(e.target.innerHTML, month.name)
+                  } else if (idd === '2') {
+                    // console.log(e.target.innerHTML, month.name)
+                    hastaMsg(e.target.innerHTML, month.name)
+                  }
+                }}
                 style={{
+                  cursor: 'pointer',
                   alignSelf: 'center',
                   justifySelf: 'center',
                   gridColumn: column(i),

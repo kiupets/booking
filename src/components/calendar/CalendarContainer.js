@@ -1,16 +1,18 @@
-import React, { useEffect, useContext, useState, useCallback } from 'react'
-import * as R from 'ramda'
-import { calendarArrayy, roomsData } from '../utils'
-import { Context } from '../context/calendarProvider'
+import React, { useContext } from 'react'
+import { calendarArrayy } from '../../utils'
+import { Context } from '../../context/calendarProvider'
+import { Context as BookingContext } from '../../context/bookingProvider'
 import { CalendarContainerInd } from './calendarContainerIndividual'
-import CalendarForm from './CalendarForm'
 
 const CalendarContainer = () => {
   const { state, nextMsg, prevMsg } = useContext(Context)
-  const { calendarArray, current } = state
+  const { calendarArray } = state
+  const bookingState = useContext(BookingContext).state
+  const { bookingArray } = bookingState
+  // console.log(bookingArray)
 
   const calendar = calendarArray.map((n) => {
-    return <CalendarContainerInd month={calendarArrayy[n]} />
+    return <CalendarContainerInd month={calendarArrayy[n]} mn={n} />
   })
 
   const scrolling = (e) => {
@@ -28,14 +30,13 @@ const CalendarContainer = () => {
     <div
       onScroll={scrolling}
       style={{
-        // overflowX: 'scroll',
-        // overflowY: 'hidden',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
         display: 'grid',
         gridAutoFlow: 'column',
       }}
     >
-      {/* {calendar} */}
-      <CalendarForm />
+      {calendar}
     </div>
   )
 }
